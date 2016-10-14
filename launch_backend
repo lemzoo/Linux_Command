@@ -1,0 +1,25 @@
+# Script to launch the Back end
+
+# Directory which contains the project
+work_home=$HOME/works/s
+
+# 1. Launch SOLR
+cd $work_home/dependencies/solr-5.1.0/
+echo "Launch SOLR if not started"
+kill -9 $(lsof -i:8983 -t) 2> /dev/null
+./bin/solr start
+
+# 2. Set environment variable
+cd $work_home/sief-back/
+echo "Set the environment variable"
+. ./env_variable.export
+
+# 3. Set the venv
+echo "Setting virtual environment"
+# deactivate
+. ./venv/bin/activate
+
+# 4. Launch the server
+echo "Start backend server"
+kill -9 $(lsof -i:5000 -t) 2> /dev/null
+./manage.py runserver -dr
