@@ -9,3 +9,6 @@ curl -i -X POST -H "Content-Type: application/json" -d '{"username":"fatimata2",
 ```
 lsof -i :port_number
 ```
+
+# Install a virtualenv in mac osx
+```virtualenv -p python3.4 venv --distribute```
