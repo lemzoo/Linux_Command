@@ -12,3 +12,15 @@ lsof -i :port_number
 
 # Install a virtualenv in mac osx
 ```virtualenv -p python3.4 venv --distribute```
+
+# Generate an SSH key 
+```ssh-keygen -t rsa -b 4096 -C "lemzoba@gmail.com"````
+
+# Add the SSH key to the ssh client
+```ssh-add ~/.ssh/id_rsa````
+
+# Copy the SSH agent to the clipboard
+```pbcopy < ~/.ssh/id_rsa.pub ````
+
+# Add the ssh agent to github
+Goto Setting -> New SSH key and paste the copied ssh agent there
