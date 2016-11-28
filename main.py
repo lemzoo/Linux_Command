@@ -22,8 +22,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # Activation du mode debogage
 app.debug = True
 
-# Configuration de la clé de sécurisation des sessions
-app.secret_key = '2d9-E2.)f&é,A$p@fpa+zSU03êû9_'
+# Configuration de la cle de securisation des sessions
+app.secret_key = '2d9-E2.)f&e,A$p@fpa+zSU03eu9_'
 db = SQLAlchemy(app)
 
 
@@ -65,7 +65,6 @@ def index():
 @app.route('/api/users', methods=['POST'])
 @auth.login_required
 def new_user():
-    print('__Executing new user methode__')
     import pdb; pdb.set_trace()
     username = request.json.get('username')
     password = request.json.get('password')
@@ -82,13 +81,11 @@ def new_user():
     user.hash_password(password)
     db.session.add(user)
     db.session.commit()
-    #return jsonify({'username': user.username}), 201, {'Location': url_for('get_user', id = user.id, _external = True)}
     return jsonify({'username': user.username}), 201
 
 @app.route('/api/resource')
 @auth.login_required
 def get_resource():
-    print('__Executing get_resource methode__')
     return jsonify({'data': 'Hello, %s!' % g.user.username})
 
 @app.route('/api/token')
@@ -96,22 +93,11 @@ def get_resource():
 def get_auth_token():
     token = g.user.generate_auth_token()
     return jsonify({'token': token.decode('ascii')})
-
-"""
-@auth.verify_password
-def verify_password(username, password):
-    print('__Executing verify_password methode__')
-    user = User.query.filter_by(username=username).first()
-    if not user or not user.verify_password(password):
-        return False
-    g.user = user
-    return True
-"""
+    
 
 @auth.verify_password
 def verify_password(username_or_token, password):
     #import pdb; pdb.set_trace()
-    print('first try to authenticate by token')
     user = User.verify_auth_token(username_or_token)
     if not user:
         print('try to authenticate with username/password')
