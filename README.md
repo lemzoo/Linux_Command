@@ -24,3 +24,6 @@ lsof -i :port_number
 
 # Add the ssh agent to github
 Goto Setting -> New SSH key and paste the copied ssh agent there
+
+# Scan all the device connected on a network
+```sudo arp -a```
